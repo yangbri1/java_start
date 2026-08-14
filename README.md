@@ -12,7 +12,7 @@
 * Github
 
 - *Phase 1: Standard MVP --- Spring Boot, JPA, PostgresSQL + RESTful (CRUD)*
-- *Phase 2: DTO's, Bean Validation, Global Exception Handling, JUnit/Integration Testing, Flyway, Spring Security, ... Docker*
+- *Phase 2: DTO's, Bean Validation, Global Exception Handling, Testing (Unit: JUnit, Mockito, Integration: Spring Boot Test, Testcontainers, PostgreSQL), Flyway, Spring Security, ... Docker*
 - *Phase 3: Auditing (logging), events, (Kafka/Splunk) Monitoring, Async Processing, Analytics/ETL Pipelines, .... Cloud Deployment, Microservicess*
 
 ## Deadlines
