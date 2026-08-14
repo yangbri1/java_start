@@ -52,4 +52,28 @@
     *(find your customized username & password under `application.properties`)
 11. `exceptions` folder is there for future JUnits or any other type of testing --- Revisit blackbox, whitebox testing.
 12. `data.sql` was included on a whim as a way to seed the `Partner` and `Property` database tables with some pre-existing records. Its location being in `resources` inherently invokes a Hibernate feature where Spring Boot will automatically detect and run `data.sql` after schema is created (depending on `@Entity` classes). Set up to trigger in `application.properties` file.
-13. 
+13. Initially the extracted Spring initializer package configures H2 to store data in memory:
+    ```
+    spring.datasource.url=jdbc:h2:mem:testdb
+    ```
+14. Sadly that means any newly created `Partner` or `Property` records would not persist in their respective database tables once the program halts. To combat this, configure H2 to store data in a FILE 'data/propertyexpenses-db' instead of in memory --- this way the DB records would persist regardless if the Spring Boot app were to close.
+    ```
+    spring.datasource.url=jdbc:h2:mem:testdb
+    ```
+    *Note: Occasionalyl after multiple `mvn spring-boot:run` there may be a need where the created `data` file may need to be deleted --- check for fix later*
+
+## API Endpoints
+   VERB 		 | 		  PATH 		 |  	 DESCRIPTION
+------------ | ------------- | -------------------
+`GET` | `/properties` | Display all properties |
+`POST` | `/properties` | Create a new property to be added to the properties database |
+`GET` | `/properties/:propertyId` | Retrieve a specific property by their unique "propertyId" |
+`GET` | `/properties/location/local` | Present only LOCALLY listed properties |
+`GET` | `/properties/work_arrangement/outof` | Present only REMOTE job offerings |
+`GET` | `/jobs/work_arrangement/hybrid` | Present only HYBRID job offerings |
+`PATCH` | `/jobs/:jobId` | Access an existing job verified by its "jobId" and update its info as pleased |
+`DELETE` | `/jobs/:jobId` | Access a job by their "jobId" and delete it (moderator) |
+`GET` | `/moderators` | Lay out all of the moderators listed in the database |
+`POST` | `/moderators` | Assign a new moderator to be saved into the moderators database |
+`GET` | `/moderators/:modId` | Pick out one moderator by their unique "modId" |
+`GET` | `/moderators/:modId/jobs` | Filter out jobs posted by a particular moderator |
