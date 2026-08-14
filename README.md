@@ -6,15 +6,19 @@
 ## Technology Requirements
 * Spring Boot
 * Spring Web, Spring JPA (or JDBC)
-* SQL (H2 embedded, Postres, etc.)
+* SQL (H2 embedded, PostresSQL, etc.)
 * React/Next.js
 * Maven
 * Github
 
-## Deadlines
-* 1st Checkpoint: 8/21
-- 2nd Checkpoint: 8/28
+- *Phase 1: Standard MVP --- Spring Boot, JPA, PostgresSQL + RESTful (CRUD)*
+- *Phase 2: DTO's, Bean Validation, Global Exception Handling, JUnit/Integration Testing, Flyway, Spring Security, ... Docker*
+- *Phase 3: Auditing (logging), events, (Kafka/Splunk) Monitoring, Async Processing, Analytics/ETL Pipelines, .... Cloud Deployment, Microservicess*
 
+## Deadlines
+* 1st Checkpoint: 8/21 (Standard MVP)
+- 2nd Checkpoint: 8/28 (Production-Ready)
+* 3rd Checkpoint: 9/4 (Enterprise Evolution)
 
 ## Getting Started
 1. Clone down GitHub backend repository
@@ -65,15 +69,42 @@
 ## API Endpoints
    VERB 		 | 		  PATH 		 |  	 DESCRIPTION
 ------------ | ------------- | -------------------
-`GET` | `/properties` | Display all properties |
-`POST` | `/properties` | Create a new property to be added to the properties database |
-`GET` | `/properties/:propertyId` | Retrieve a specific property by their unique "propertyId" |
-`GET` | `/properties/location/local` | Present only LOCALLY listed properties |
-`GET` | `/properties/work_arrangement/outof` | Present only REMOTE job offerings |
-`GET` | `/jobs/work_arrangement/hybrid` | Present only HYBRID job offerings |
-`PATCH` | `/jobs/:jobId` | Access an existing job verified by its "jobId" and update its info as pleased |
-`DELETE` | `/jobs/:jobId` | Access a job by their "jobId" and delete it (moderator) |
-`GET` | `/moderators` | Lay out all of the moderators listed in the database |
-`POST` | `/moderators` | Assign a new moderator to be saved into the moderators database |
-`GET` | `/moderators/:modId` | Pick out one moderator by their unique "modId" |
-`GET` | `/moderators/:modId/jobs` | Filter out jobs posted by a particular moderator |
+`GET` | `/api/v1/properties` | Display all properties |
+`POST` | `/api/v1/properties` | Create a new property to be added to the properties database |
+`GET` | `/api/v1/properties/:propertyId` | Retrieve a specific property by their unique "propertyId" |
+`GET` | `/api/v1/properties/location/local` | Present only LOCALLY listed properties |
+`GET` | `/api/v1/properties/location/outofstate` | Present only REMOTE listed properties |
+`PATCH` | `/api/v1/properties/:propertyId` | Access an existing property verified by its "propertyId" and update its info as pleased |
+`DELETE` | `/api/v1/properties/:propertyId` | Access a property by their "propertyId" and delete it (admin access) |
+
+`GET` | `/api/v1/transactions` | Lay out all of the transactions listed in the database |
+`POST` | `/api/v1/transactions` | Assign a new transaction to be saved into the transaction database |
+`GET` | `/api/v1/transactions/:transactionId` | Pick out one transaction by their unique "transactionId" |
+`PUT` | `/api/v1/transactions/:transactionId` | Access an existing transaction verified by its "transactionId" and update its info as pleased |
+`DELETE` | `/api/v1/transactions/:transactionId` | Access a transaction by their "transactionId" and delete it (admin access) |
+
+`GET` | `/api/v1/properties/:propertyId/transactions` | Filter out transactions under a particular property |
+
+## Upcoming TODO's
+* Best length of description and field members for optiminal SEO 
+https://www.baeldung.com/java-optional
+https://theundercoverrecruiter.com/tips-writing-job-descriptions/
+https://www.mentalfloss.com/article/646581/world-longest-place-names
+https://atdata.com/blog/long-email-addresses/
+
+* `@CreationTimestamp` annotation allows Hibernate to populate field automatically with timestamp of an entity first creation
+https://stackoverflow.com/questions/49954812/how-can-you-make-a-created-at-column-generate-the-creation-date-time-automatical
+https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#mapping-generated-CreationTimestamp
+
+* Explicitly force Spring Boot to load data to initialzie database from `data.sql`
+https://stackoverflow.com/questions/45082574/spring-boot-doesnt-load-data-to-initialize-database-using-data-sql
+
+* Enum for constants for `WorkArrangement` field
+https://www.baeldung.com/a-guide-to-java-enums 
+https://stackoverflow.com/questions/67233340/how-do-i-validate-or-restrict-enum-type-to-accept-only-specific-values
+https://www.baeldung.com/jpa-persisting-enums-in-jpa
+
+* Cross-Origin Resource Sharing (`@CrossOrigin` annotation) only included path relating to the origin: 
+http://yangbri1.github.io
+
+(DO NOT include the latter half of URL path `/fullstack_react_spring_boot_frontend/` otherwise CORS will fail)
